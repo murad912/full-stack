@@ -40,7 +40,7 @@ public class TodoController {
         return new ResponseEntity<>(service.deleteById(id),HttpStatus.OK);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Todo> update(@RequestBody Todo t, @PathVariable("id") Long id){
 
         return new ResponseEntity<>(service.update(t, id),HttpStatus.OK);
