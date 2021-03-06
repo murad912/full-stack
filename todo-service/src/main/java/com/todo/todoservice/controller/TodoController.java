@@ -27,11 +27,14 @@ public class TodoController {
     }
     @GetMapping("/{id}")
     public ResponseEntity<Todo> getById(@PathVariable("id") Long id){
-        return new ResponseEntity<>(service.getAllById(id),HttpStatus.OK);
+        if(!service.getAllById(id).isPresent()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(service.getAllById(id).get(),HttpStatus.OK);
     }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") Long id){
-        if(getById(id)==null){
+        if(!service.getAllById(id).isPresent()){
            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(service.deleteById(id),HttpStatus.OK);

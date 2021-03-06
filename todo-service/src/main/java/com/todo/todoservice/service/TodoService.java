@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TodoService {
@@ -21,11 +22,12 @@ public class TodoService {
         return  repo.save(t);
     }
 
-    public Todo getAllById(Long id) {
-        return repo.findById(id).get();
+    public Optional<Todo> getAllById(Long id) {
+        return repo.findById(id);
     }
 
     public String deleteById(Long id) {
+
          repo.deleteById(id);
          return "Deleted!";
     }
